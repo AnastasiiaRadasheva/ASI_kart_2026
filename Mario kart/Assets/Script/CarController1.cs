@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CarController1 : MonoBehaviour
 {
+    
     [SerializeField] private Transform _transformFL;
     [SerializeField] private Transform _transformFR;
     [SerializeField] private Transform _transformBL;
@@ -14,10 +15,17 @@ public class CarController1 : MonoBehaviour
 
     [SerializeField] private float _force;
     [SerializeField] private float _maxAngle;
-    private float _verticalInput;
+    [SerializeField] private float enginePower = 3000f;
+    [SerializeField] private float maxSpeed = 7f;
 
+    private Rigidbody rb;
     private float _vertical = 0f;
     private float _horizontal = 0f;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     private void FixedUpdate()
     {
@@ -34,8 +42,21 @@ public class CarController1 : MonoBehaviour
         _horizontal = Mathf.MoveTowards(_horizontal, targetHorizontal, Time.fixedDeltaTime * 5f);
 
 
-        _colliderFL.motorTorque = _vertical * _force;
-        _colliderFR.motorTorque = _vertical * _force;
+        _colliderFL.motorTorque = _vertical * (enginePower * 0.5f);
+        _colliderFR.motorTorque = _vertical * (enginePower * 0.5f);
+        _colliderBL.motorTorque = _vertical * (enginePower * 0.5f);
+        _colliderBR.motorTorque = _vertical * (enginePower * 0.5f);
+
+        if (rb.linearVelocity.magnitude < maxSpeed)
+        {
+            _colliderFL.motorTorque = _vertical * enginePower;
+            _colliderFR.motorTorque = _vertical * enginePower;
+        }
+        else
+        {
+            _colliderFL.motorTorque = 0f;
+            _colliderFR.motorTorque = 0f;
+        }
 
         if (Input.GetKey(KeyCode.Z))
         {

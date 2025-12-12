@@ -16,7 +16,7 @@ public class CarController2 : MonoBehaviour
     [SerializeField] private float _force;
     [SerializeField] private float _maxAngle;
     [SerializeField] private float enginePower = 3000f;
-    [SerializeField] private float maxSpeed = 30f;
+    [SerializeField] private float maxSpeed = 7f;
 
     private Rigidbody rb;
     private float _vertical = 0f;
@@ -47,7 +47,7 @@ public class CarController2 : MonoBehaviour
         _colliderBL.motorTorque = _vertical * (enginePower * 0.5f);
         _colliderBR.motorTorque = _vertical * (enginePower * 0.5f);
 
-        if (rb.velocity.magnitude < maxSpeed)
+        if (rb.linearVelocity.magnitude < maxSpeed)
         {
             _colliderFL.motorTorque = _vertical * enginePower;
             _colliderFR.motorTorque = _vertical * enginePower;
