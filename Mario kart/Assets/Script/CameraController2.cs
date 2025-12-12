@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraControl : MonoBehaviour
+public class CameraController2 : MonoBehaviour
 {
     [SerializeField] private Transform _car;
 

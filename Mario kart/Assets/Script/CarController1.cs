@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CarController : MonoBehaviour
+public class CarController1 : MonoBehaviour
 {
     [SerializeField] private Transform _transformFL;
     [SerializeField] private Transform _transformFR;
@@ -16,10 +16,26 @@ public class CarController : MonoBehaviour
     [SerializeField] private float _maxAngle;
     private float _verticalInput;
 
+    private float _vertical = 0f;
+    private float _horizontal = 0f;
+
     private void FixedUpdate()
     {
-        _colliderFL.motorTorque = Input.GetAxis("Vertical") * _force;
-        _colliderFR.motorTorque = Input.GetAxis("Vertical") * _force;
+        float targetVertical = 0f;
+        float targetHorizontal = 0f;
+
+        if (Input.GetKey(KeyCode.W)) targetVertical = 0.5f;
+        if (Input.GetKey(KeyCode.S)) targetVertical = -0.5f;
+
+        if (Input.GetKey(KeyCode.D)) targetHorizontal = 0.5f;
+        if (Input.GetKey(KeyCode.A)) targetHorizontal = -0.5f;
+
+        _vertical = Mathf.MoveTowards(_vertical, targetVertical, Time.fixedDeltaTime * 5f);
+        _horizontal = Mathf.MoveTowards(_horizontal, targetHorizontal, Time.fixedDeltaTime * 5f);
+
+
+        _colliderFL.motorTorque = _vertical * _force;
+        _colliderFR.motorTorque = _vertical * _force;
 
         if (Input.GetKey(KeyCode.Z))
         {
@@ -36,8 +52,8 @@ public class CarController : MonoBehaviour
             _colliderBR.brakeTorque = 0f;
         }
 
-        _colliderFL.steerAngle = _maxAngle * Input.GetAxis("Horizontal");
-        _colliderFR.steerAngle = _maxAngle * Input.GetAxis("Horizontal");
+        _colliderFL.steerAngle = _maxAngle * _horizontal;
+        _colliderFR.steerAngle = _maxAngle * _horizontal;
 
         RotateWheel(_colliderFL, _transformFL);
         RotateWheel(_colliderFR, _transformFR);
@@ -56,5 +72,3 @@ public class CarController : MonoBehaviour
         transform.position = position;
     }
 }
-
-    
