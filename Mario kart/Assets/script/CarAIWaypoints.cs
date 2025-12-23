@@ -1,10 +1,13 @@
 using UnityEngine;
+using System.Linq;
 
 [RequireComponent(typeof(Rigidbody))]
 public class CarAIWaypoint : MonoBehaviour
 {
-    [Header("Waypoints")]
-    public Transform[] waypoints;
+    [Header("Waypoints (auto)")]
+    public Transform waypointsRoot;          // <- сюда перетаскиваешь объект "waypoints"
+    public Transform[] waypoints;            // можно оставить, но руками не заполнять
+    public bool autoCollectWaypoints = true; // авто-сбор
     public float reachDistance = 4f;
     public bool loop = true;
 
@@ -23,9 +26,7 @@ public class CarAIWaypoint : MonoBehaviour
     [Range(0f, 1f)] public float throttleSteerReduction = 0.4f;
 
     [Header("Behind target behavior")]
-    [Tooltip("Если точка позади, даём полный руль для разворота")]
     public bool fullLockWhenBehind = true;
-    [Tooltip("С какой 'глубины' в локальных координатах считать точку позади")]
     public float behindThreshold = -1.0f;
 
     [Header("Stability")]
@@ -64,7 +65,28 @@ public class CarAIWaypoint : MonoBehaviour
             rb.centerOfMass = centerOfMass;
 
         if (rb.mass < 800f) rb.mass = 1000f;
-        if (rb.angularDamping < 2f) rb.angularDamping = 3f; // Unity 6
+        if (rb.angularDamping < 2f) rb.angularDamping = 3f;
+
+        CollectWaypointsIfNeeded();
+    }
+
+    void OnValidate()
+    {
+        // чтобы обновлялось прямо в редакторе при изменениях
+        if (!Application.isPlaying)
+            CollectWaypointsIfNeeded();
+    }
+
+    void CollectWaypointsIfNeeded()
+    {
+        if (!autoCollectWaypoints || waypointsRoot == null) return;
+
+        // Берём ТОЛЬКО прямых детей (без вложенных)
+        waypoints = new Transform[waypointsRoot.childCount];
+        for (int i = 0; i < waypointsRoot.childCount; i++)
+            waypoints[i] = waypointsRoot.GetChild(i);
+
+        // Если хочешь собирать и вложенные тоже — скажи, дам вариант.
     }
 
     void FixedUpdate()
@@ -73,24 +95,19 @@ public class CarAIWaypoint : MonoBehaviour
         if (index < 0) index = 0;
         if (index >= waypoints.Length) index = loop ? 0 : waypoints.Length - 1;
 
-        // скорость
         float speedKmh = rb.linearVelocity.magnitude * 3.6f;
         bool overspeed = speedKmh > maxSpeedKmh;
 
-        // текущая цель
         Vector3 target = waypoints[index].position;
 
-        // расстояние по XZ (игнор Y) — важный фикс!
         float distXZ = Vector2.Distance(
             new Vector2(transform.position.x, transform.position.z),
             new Vector2(target.x, target.z)
         );
 
-        // если дошли — переключаемся (и можем пропустить сразу несколько близких)
         if (distXZ <= reachDistance)
         {
             AdvanceWaypoint();
-            // пропуск близких точек, чтобы не "залипать"
             int safety = 0;
             while (safety++ < waypoints.Length)
             {
@@ -104,13 +121,9 @@ public class CarAIWaypoint : MonoBehaviour
             }
         }
 
-        // локальная цель
         Vector3 localTarget = transform.InverseTransformPoint(waypoints[index].position);
 
-        // ---- STEER ----
         float steer;
-
-        // если точка позади — разворачиваемся резче
         if (fullLockWhenBehind && localTarget.z < behindThreshold)
         {
             steer = Mathf.Sign(localTarget.x);
@@ -128,18 +141,15 @@ public class CarAIWaypoint : MonoBehaviour
 
         float steerAngle = steer * maxSteerAngle;
 
-        // избегание препятствий
         if (avoidObstacles)
         {
             float avoid = ObstacleAvoidanceSteer();
             steerAngle = Mathf.Clamp(steerAngle + avoid * maxSteerAngle, -maxSteerAngle, maxSteerAngle);
         }
 
-        // ---- THROTTLE ----
         float throttle = 1f - Mathf.Clamp01(Mathf.Abs(steer) * throttleSteerReduction);
         if (overspeed) throttle = 0f;
 
-        // если точка позади — чуть притормозить, чтобы легче развернулась
         if (fullLockWhenBehind && localTarget.z < behindThreshold)
             throttle *= 0.6f;
 
@@ -147,7 +157,6 @@ public class CarAIWaypoint : MonoBehaviour
         ApplyMotor(throttle);
         ApplyBrakes(overspeed);
 
-        // anti-roll
         if (useAntiRoll)
         {
             AntiRoll(frontLeft, frontRight, antiRollForce);
