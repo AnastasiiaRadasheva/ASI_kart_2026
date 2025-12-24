@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec2536b921f659a47a6a015356e14ff7, type: 3}
+  m_Name: CameraDatabase
+  m_EditorClassIdentifier: 
+  cameraIndex: 0
+  cameraPrefabs:
+  - {fileID: 5262046705906131361, guid: 0960cc525fdcb534588d4469d2a39662, type: 3}
+  - {fileID: 1789727271807887755, guid: d502251ded3ed804282b850154978b1f, type: 3}
+  - {fileID: 8357511267756036826, guid: b05c8d7ad526ee24a8612dc142b3bdb2, type: 3}
+  - {fileID: 1789727271807887755, guid: 72fd1a6dd9c334749b6f9bd06e69b21e, type: 3}
+  finishCamera: {fileID: 4735528573208596353, guid: 7465212e7643bc94993aa19b5cbd157c, type: 3}
+  lookbackCamera: {fileID: 1787391733806233873, guid: b9359e426cd05b64d8fc0f38cec06f52, type: 3}

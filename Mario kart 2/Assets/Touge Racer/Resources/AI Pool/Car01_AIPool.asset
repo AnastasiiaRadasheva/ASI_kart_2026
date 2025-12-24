@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0519154b8f8a21c42852b635d6fb40f1, type: 3}
+  m_Name: Car01_AIPool
+  m_EditorClassIdentifier: 
+  ai:
+  - {fileID: 11400000, guid: 7c84d7a0036c53041a4f71d407a1c986, type: 2}
+  - {fileID: 11400000, guid: baabd60f3bdc4ac4e99d0f446a0df393, type: 2}
+  - {fileID: 11400000, guid: 8737b1b1c3c7b594f84f7efbf1ed3de4, type: 2}
+  - {fileID: 11400000, guid: a4aa6d91e4ca41048a5c9c47f90fa4ae, type: 2}
+  - {fileID: 11400000, guid: 4bc4a82ccc57c1b43be23ba76e26b091, type: 2}
+  - {fileID: 11400000, guid: 16b071ce75350b049bf814b153607c05, type: 2}
