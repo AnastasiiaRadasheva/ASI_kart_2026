@@ -3622,7 +3622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d691f1e8bd0e2ee4ebd2e18717b2f429, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FollowCamera
-  target: {fileID: 865529616}
+  target: {fileID: 324937279}
   offset: {x: 0, y: 4, z: -8}
   positionSmooth: 8
   rotationSmooth: 8
@@ -3903,7 +3903,7 @@ Transform:
   m_GameObject: {fileID: 324937278}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7135466, z: -0, w: 0.7006078}
-  m_LocalPosition: {x: 24.451, y: 0.435, z: 19.86}
+  m_LocalPosition: {x: 27.91, y: 0.435, z: 19.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3948,8 +3948,8 @@ MonoBehaviour:
   splinePosition: 0
   autoAccel: 0
   steeringResponsiveness: 2
-  maxSpeed: 50
-  minCorneringSpeed: 20
+  maxSpeed: 35
+  minCorneringSpeed: 15
   brakeIntensity: 1
   brakeAngle: 70
   brakeCurve:
@@ -4006,16 +4006,34 @@ MonoBehaviour:
   rearWheelPosZ: 0.46
   rearWheelPosY: 0.6
   rearWheelPosX: 0.38
-  acceleration: 25
+  acceleration: 11
   maxSpeed: 100
   reverseSpeed: 15
   deceleration: 10
   steerStrength: 35
   turningCurve:
     serializedVersion: 2
-    m_Curve: []
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     m_PreInfinity: 2
-    m_PostInfinity: 2
+    m_PostInfinity: 0
     m_RotationOrder: 4
   dragCoefficient: 2
   brakingDeceleration: 100
@@ -4033,7 +4051,7 @@ MonoBehaviour:
   - {fileID: 2135392122}
   maxSteerAngle: 30
   steeringWheel: {fileID: 0}
-  maxSteerWheelAngle: 180
+  maxSteerWheelAngle: -500
   skidmarks:
   - {fileID: 0}
   - {fileID: 0}
@@ -4044,7 +4062,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  minSideSkidVel: 10
+  minSideSkidVel: 2
   normalLayer: Default
   ghostLayer: Default
   isGhost: 0
@@ -11852,7 +11870,7 @@ Transform:
   m_GameObject: {fileID: 1036659206}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.008, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12615,7 +12633,7 @@ Transform:
   m_GameObject: {fileID: 1113488676}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.373, y: 0, z: 0}
+  m_LocalPosition: {x: -0.017, y: 0, z: -0.146}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -15488,7 +15506,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: d63bbaf304c9ae14cb020cdf31d50254, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.341
+      value: 0.019
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d63bbaf304c9ae14cb020cdf31d50254, type: 3}
       propertyPath: m_LocalPosition.y
@@ -16674,7 +16692,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad2150c4c4ef9a645849b2ce608ce61e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.73
+      value: -5.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ad2150c4c4ef9a645849b2ce608ce61e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17123,7 +17141,7 @@ Transform:
   m_GameObject: {fileID: 1517625847}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.405, y: 0, z: 0.09}
+  m_LocalPosition: {x: -0.009, y: 0, z: 0.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
