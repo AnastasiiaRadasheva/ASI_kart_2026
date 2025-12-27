@@ -4,7 +4,7 @@ public class cameracontrol : MonoBehaviour
 {
     [SerializeField] private Transform _car;
 
-    private Vector3 _offset = new Vector3(0f, 5f, -8f);
+    private Vector3 _offset = new Vector3(0f, 4f, -6f);
     private float _speed = 10f;
 
     private void FixedUpdate()
