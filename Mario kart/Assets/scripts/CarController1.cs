@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class CarController1 : MonoBehaviour
 {
-[SerializeField] private Transform _transformFL;
+    [SerializeField] private Transform _transformFL;
     [SerializeField] private Transform _transformFR;
     [SerializeField] private Transform _transformBL;
     [SerializeField] private Transform _transformBR;
@@ -26,6 +26,8 @@ public class CarController1 : MonoBehaviour
     private float baseEnginePower;
     private float baseMaxAngle;
 
+    public bool isPlayer1;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,11 +47,12 @@ public class CarController1 : MonoBehaviour
         var kb = Keyboard.current;
         if(kb == null) return;
 
-        if (kb.wKey.isPressed) targetVertical = 0.5f;
-        if (kb.sKey.isPressed) targetVertical = -0.5f;
+            if (kb.wKey.isPressed) targetVertical = 0.5f;
+            if (kb.sKey.isPressed) targetVertical = -0.5f;
 
-        if (kb.dKey.isPressed) targetHorizontal = 0.5f;
-        if (kb.aKey.isPressed) targetHorizontal = -0.5f;
+            if (kb.dKey.isPressed) targetHorizontal = 0.5f;
+            if (kb.aKey.isPressed) targetHorizontal = -0.5f;
+
 
         _vertical = Mathf.MoveTowards(_vertical, targetVertical, Time.fixedDeltaTime * 5f);
         _horizontal = Mathf.MoveTowards(_horizontal, targetHorizontal, Time.fixedDeltaTime * 5f);
