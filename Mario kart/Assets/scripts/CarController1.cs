@@ -1,91 +1,89 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+
 
 public class CarController1 : MonoBehaviour
 {
+
+    [Header("Wheel Transforms")]
     [SerializeField] private Transform _transformFL;
     [SerializeField] private Transform _transformFR;
     [SerializeField] private Transform _transformBL;
     [SerializeField] private Transform _transformBR;
 
+    [Header("Wheel Colliders")]
     [SerializeField] private WheelCollider _colliderFL;
     [SerializeField] private WheelCollider _colliderFR;
     [SerializeField] private WheelCollider _colliderBL;
     [SerializeField] private WheelCollider _colliderBR;
 
-    [SerializeField] private float _force;
-    [SerializeField] private float _maxAngle = 4f;
-    [SerializeField] private float enginePower = 600f;
-    [SerializeField] private float maxSpeed = 6f;
+    [Header("Car Settings")]
+    [SerializeField] private float maxSteerAngle = 30f;
+    [SerializeField] private float enginePower = 1500f;
+    [SerializeField] private float maxSpeed = 25f;
+
+    [Header("Brakes")]
+    [SerializeField] private float brakeForce = 8000f;
+
+    [Header("Physics")]
+    [SerializeField] private float downforce = 50f;
+    [SerializeField] private float drag = 0.02f;
 
     private Rigidbody rb;
-    private float _vertical = 0f;
-    private float _horizontal = 0f;
-    public float downForce = 6f;
 
-    private float baseEnginePower;
-    private float baseMaxAngle;
-
-    public bool isPlayer1;
+    private float throttle;
+    private float steer;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.centerOfMass = new Vector3(0, -0.4f, 0);
-
-        baseEnginePower = enginePower;
-        baseMaxAngle = _maxAngle;
+        rb.centerOfMass = new Vector3(0, -0.6f, 0);
     }
 
     private void FixedUpdate()
     {
-        rb.AddForce(-transform.up * downForce * (rb.linearVelocity.magnitude / 20f));
+        float speed = rb.linearVelocity.magnitude;
+        float forwardSpeed = Vector3.Dot(rb.linearVelocity, transform.forward);
 
-        float targetVertical = 0f;
-        float targetHorizontal = 0f;
+        float targetThrottle = 0f;
+        float targetSteer = 0f;
 
-        var kb = Keyboard.current;
-        if(kb == null) return;
+            if (Input.GetKey(KeyCode.W)) targetThrottle = 0.5f;
+            if (Input.GetKey(KeyCode.S)) targetThrottle = -0.5f;
 
-            if (kb.wKey.isPressed) targetVertical = 0.5f;
-            if (kb.sKey.isPressed) targetVertical = -0.5f;
+            if (Input.GetKey(KeyCode.D)) targetSteer = 0.5f;
+            if (Input.GetKey(KeyCode.A)) targetSteer = -0.5f;
 
-            if (kb.dKey.isPressed) targetHorizontal = 0.5f;
-            if (kb.aKey.isPressed) targetHorizontal = -0.5f;
+        throttle = Mathf.Lerp(throttle, targetThrottle, Time.fixedDeltaTime * 2f);
+        steer = Mathf.Lerp(steer, targetSteer, Time.fixedDeltaTime * 4f);
 
 
-        _vertical = Mathf.MoveTowards(_vertical, targetVertical, Time.fixedDeltaTime * 5f);
-        _horizontal = Mathf.MoveTowards(_horizontal, targetHorizontal, Time.fixedDeltaTime * 5f);
+        float motorTorque = throttle * enginePower;
 
-        float power = baseEnginePower;
-        float steer = baseMaxAngle;
-
-        if (_vertical < 0)
-            power *= 0.35f;
-
-        if (rb.linearVelocity.magnitude < maxSpeed)
+        if (speed < maxSpeed)
         {
-            _colliderFL.motorTorque = _vertical * power;
-            _colliderFR.motorTorque = _vertical * power;
+            _colliderBL.motorTorque = motorTorque;
+            _colliderBR.motorTorque = motorTorque;
         }
         else
         {
-            _colliderFL.motorTorque = 0f;
-            _colliderFR.motorTorque = 0f;
+            _colliderBL.motorTorque = 0f;
+            _colliderBR.motorTorque = 0f;
         }
 
-        if (_vertical < 0)
-            steer *= 0.25f;
+        // -------- STEERING --------
+        float speedSteerLimit = Mathf.Lerp(maxSteerAngle, 10f, speed / maxSpeed);
+        float steerAngle = speedSteerLimit * steer;
 
-        _colliderFL.steerAngle = steer * _horizontal;
-        _colliderFR.steerAngle = steer * _horizontal;
+        _colliderFL.steerAngle = steerAngle;
+        _colliderFR.steerAngle = steerAngle;
 
-        if (kb.zKey.isPressed)
+        // -------- BRAKES --------
+        if (Input.GetKey(KeyCode.Z) || (throttle < 0 && forwardSpeed > 1f))
         {
-            _colliderFL.brakeTorque = 3000f;
-            _colliderFR.brakeTorque = 3000f;
-            _colliderBL.brakeTorque = 3000f;
-            _colliderBR.brakeTorque = 3000f;
+            _colliderFL.brakeTorque = brakeForce * 0.6f;
+            _colliderFR.brakeTorque = brakeForce * 0.6f;
+            _colliderBL.brakeTorque = brakeForce * 0.4f;
+            _colliderBR.brakeTorque = brakeForce * 0.4f;
         }
         else
         {
@@ -95,21 +93,25 @@ public class CarController1 : MonoBehaviour
             _colliderBR.brakeTorque = 0f;
         }
 
-        RotateWheel(_colliderFL, _transformFL);
-        RotateWheel(_colliderFR, _transformFR);
-        RotateWheel(_colliderBL, _transformBL);
-        RotateWheel(_colliderBR, _transformBR);
+        // -------- DOWNFORCE --------
+        rb.AddForce(-transform.up * speed * downforce);
+
+        // -------- DRAG --------
+        rb.linearVelocity *= (1f - drag * Time.fixedDeltaTime);
+
+        // -------- VISUAL --------
+        UpdateWheel(_colliderFL, _transformFL);
+        UpdateWheel(_colliderFR, _transformFR);
+        UpdateWheel(_colliderBL, _transformBL);
+        UpdateWheel(_colliderBR, _transformBR);
     }
 
-        private void RotateWheel(WheelCollider collider, Transform transform)
+    private void UpdateWheel(WheelCollider collider, Transform wheel)
     {
-        Vector3 position;
-        Quaternion rotation;
-
-        collider.GetWorldPose(out position, out rotation);
-
-        transform.rotation = rotation;
-        transform.position = position;
+        Vector3 pos;
+        Quaternion rot;
+        collider.GetWorldPose(out pos, out rot);
+        wheel.position = pos;
+        wheel.rotation = rot;
     }
-    
 }
