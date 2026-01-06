@@ -71,7 +71,9 @@ public class CarController1 : MonoBehaviour
         }
 
         // -------- STEERING --------
-        float speedSteerLimit = Mathf.Lerp(maxSteerAngle, 10f, speed / maxSpeed);
+        float t = speed / maxSpeed;
+        t = Mathf.Clamp01(t);
+        float speedSteerLimit = Mathf.Lerp(maxSteerAngle, 6f, t);
         float steerAngle = speedSteerLimit * steer;
 
         _colliderFL.steerAngle = steerAngle;
