@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Car2 : MonoBehaviour
 {
+
     [Header("Wheel Transforms")]
     [SerializeField] private Transform _transformFL;
     [SerializeField] private Transform _transformFR;
@@ -15,15 +17,15 @@ public class Car2 : MonoBehaviour
     [SerializeField] private WheelCollider _colliderBR;
 
     [Header("Car Settings")]
-    [SerializeField] private float maxSteerAngle = 30f;
-    [SerializeField] private float enginePower = 1500f;
-    [SerializeField] private float maxSpeed = 25f;
+    [SerializeField] private float maxSteerAngle = 40f;
+    [SerializeField] private float enginePower = 4000f;
+    [SerializeField] private float maxSpeed = 40f;
 
     [Header("Brakes")]
-    [SerializeField] private float brakeForce = 8000f;
+    [SerializeField] private float brakeForce = 6000f;
 
     [Header("Physics")]
-    [SerializeField] private float downforce = 50f;
+    [SerializeField] private float downforce = 350f;
     [SerializeField] private float drag = 0.02f;
 
     private Rigidbody rb;
@@ -45,11 +47,15 @@ public class Car2 : MonoBehaviour
         float targetThrottle = 0f;
         float targetSteer = 0f;
 
-            if (Input.GetKey(KeyCode.UpArrow)) targetThrottle = 0.5f;
-            if (Input.GetKey(KeyCode.DownArrow)) targetThrottle = -0.5f;
+        var keyboard = Keyboard.current;
+        if (keyboard == null) return;
 
-            if (Input.GetKey(KeyCode.RightArrow)) targetSteer = 0.5f;
-            if (Input.GetKey(KeyCode.LeftArrow)) targetSteer = -0.5f;
+if (Keyboard.current.upArrowKey.isPressed) targetThrottle = 0.5f;
+if (Keyboard.current.downArrowKey.isPressed) targetThrottle = -0.5f;
+
+if (Keyboard.current.rightArrowKey.isPressed) targetSteer = 0.5f;
+if (Keyboard.current.leftArrowKey.isPressed) targetSteer = -0.5f;
+
 
         throttle = Mathf.Lerp(throttle, targetThrottle, Time.fixedDeltaTime * 2f);
         steer = Mathf.Lerp(steer, targetSteer, Time.fixedDeltaTime * 4f);
@@ -73,12 +79,12 @@ public class Car2 : MonoBehaviour
         t = Mathf.Clamp01(t);
         float speedSteerLimit = Mathf.Lerp(maxSteerAngle, 6f, t);
         float steerAngle = speedSteerLimit * steer;
-        
+
         _colliderFL.steerAngle = steerAngle;
         _colliderFR.steerAngle = steerAngle;
 
         // -------- BRAKES --------
-        if (Input.GetKey(KeyCode.Space) || (throttle < 0 && forwardSpeed > 1f))
+if (Keyboard.current.spaceKey.isPressed || (throttle < 0 && forwardSpeed > 1f))
         {
             _colliderFL.brakeTorque = brakeForce * 0.6f;
             _colliderFR.brakeTorque = brakeForce * 0.6f;

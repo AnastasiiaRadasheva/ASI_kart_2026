@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 public class Carr1 : MonoBehaviour
 {
@@ -47,11 +47,14 @@ public class Carr1 : MonoBehaviour
         float targetThrottle = 0f;
         float targetSteer = 0f;
 
-            if (Input.GetKey(KeyCode.W)) targetThrottle = 0.5f;
-            if (Input.GetKey(KeyCode.S)) targetThrottle = -0.5f;
+        var keyboard = Keyboard.current;
+        if (keyboard == null) return;
 
-            if (Input.GetKey(KeyCode.D)) targetSteer = 0.5f;
-            if (Input.GetKey(KeyCode.A)) targetSteer = -0.5f;
+        if (keyboard.wKey.isPressed) targetThrottle = 0.5f;
+        if (keyboard.sKey.isPressed) targetThrottle = -0.5f;
+
+        if (keyboard.dKey.isPressed) targetSteer = 0.5f;
+        if (keyboard.aKey.isPressed) targetSteer = -0.5f;
 
         throttle = Mathf.Lerp(throttle, targetThrottle, Time.fixedDeltaTime * 2f);
         steer = Mathf.Lerp(steer, targetSteer, Time.fixedDeltaTime * 4f);
@@ -80,7 +83,7 @@ public class Carr1 : MonoBehaviour
         _colliderFR.steerAngle = steerAngle;
 
         // -------- BRAKES --------
-        if (Input.GetKey(KeyCode.Z) || (throttle < 0 && forwardSpeed > 1f))
+        if (keyboard.zKey.isPressed || (throttle < 0 && forwardSpeed > 1f))
         {
             _colliderFL.brakeTorque = brakeForce * 0.6f;
             _colliderFR.brakeTorque = brakeForce * 0.6f;
