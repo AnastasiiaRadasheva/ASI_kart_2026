@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Carr1 : MonoBehaviour
+[RequireComponent(typeof(Rigidbody))]
+public class Car1 : MonoBehaviour
 {
-
-    [Header("Wheel Transforms")]
+    [Header("Wheel Transforms (Visual)")]
     [SerializeField] private Transform _transformFL;
     [SerializeField] private Transform _transformFR;
     [SerializeField] private Transform _transformBL;
@@ -17,106 +17,105 @@ public class Carr1 : MonoBehaviour
     [SerializeField] private WheelCollider _colliderBR;
 
     [Header("Car Settings")]
-    [SerializeField] private float maxSteerAngle = 30f;
-    [SerializeField] private float enginePower = 1500f;
+    [SerializeField] private float acceleration = 30f;
     [SerializeField] private float maxSpeed = 25f;
-
-    [Header("Brakes")]
-    [SerializeField] private float brakeForce = 8000f;
-
-    [Header("Physics")]
-    [SerializeField] private float downforce = 50f;
-    [SerializeField] private float drag = 0.02f;
+    [SerializeField] private float turnSpeed = 90f;
+    [SerializeField] private float driftMultiplier = 0.8f;
+    [SerializeField] private float sideGrip = 0.85f;
 
     private Rigidbody rb;
 
-    private float throttle;
-    private float steer;
+    // Input
+    private float motorInput;
+    private float steerInput;
+    private bool brakeInput;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.centerOfMass = new Vector3(0, -0.6f, 0);
+
+        DisableWheelColliderMotors();
+    }
+
+    private void DisableWheelColliderMotors()
+    {
+        // Отключаем моторы и тормоза коллайдеров
+        _colliderFL.motorTorque = 0f; _colliderFL.brakeTorque = 0f;
+        _colliderFR.motorTorque = 0f; _colliderFR.brakeTorque = 0f;
+        _colliderBL.motorTorque = 0f; _colliderBL.brakeTorque = 0f;
+        _colliderBR.motorTorque = 0f; _colliderBR.brakeTorque = 0f;
+    }
+
+    private void Update()
+    {
+        // Газ / Тормоз
+        motorInput = Keyboard.current.wKey.isPressed ? 1f : (Keyboard.current.sKey.isPressed ? -1f : 0f);
+
+        // Поворот
+        steerInput = Keyboard.current.aKey.isPressed ? -1f : (Keyboard.current.dKey.isPressed ? 1f : 0f);
+
+        // Ручник
+        brakeInput = Keyboard.current.spaceKey.isPressed;
     }
 
     private void FixedUpdate()
     {
-        float speed = rb.linearVelocity.magnitude;
-        float forwardSpeed = Vector3.Dot(rb.linearVelocity, transform.forward);
+        if (!IsOnGround()) return; // Не управляем в воздухе
 
-        float targetThrottle = 0f;
-        float targetSteer = 0f;
+        // Движение
+        if (motorInput != 0f)
+            rb.AddForce(transform.forward * motorInput * acceleration, ForceMode.Acceleration);
 
-        var keyboard = Keyboard.current;
-        if (keyboard == null) return;
+        // Ограничение скорости
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+        if (flatVel.magnitude > maxSpeed)
+            rb.linearVelocity = flatVel.normalized * maxSpeed + Vector3.up * rb.linearVelocity.y;
 
-        if (keyboard.wKey.isPressed) targetThrottle = 0.5f;
-        if (keyboard.sKey.isPressed) targetThrottle = -0.5f;
+        // Поворот
+        if (Mathf.Abs(steerInput) > 0.01f && flatVel.magnitude > 0.5f)
+            rb.MoveRotation(rb.rotation * Quaternion.Euler(0f, steerInput * turnSpeed * Time.fixedDeltaTime, 0f));
 
-        if (keyboard.dKey.isPressed) targetSteer = 0.5f;
-        if (keyboard.aKey.isPressed) targetSteer = -0.5f;
+        // Дрифт
+        if (brakeInput && Mathf.Abs(steerInput) > 0.01f)
+            rb.AddForce(transform.right * steerInput * acceleration * driftMultiplier, ForceMode.Acceleration);
 
-        throttle = Mathf.Lerp(throttle, targetThrottle, Time.fixedDeltaTime * 2f);
-        steer = Mathf.Lerp(steer, targetSteer, Time.fixedDeltaTime * 4f);
+        // Боковой занос
+        Vector3 localVel = transform.InverseTransformDirection(rb.linearVelocity);
+        float gripAmount = brakeInput ? 0.3f : sideGrip;
+        localVel.x *= gripAmount;
+        rb.linearVelocity = transform.TransformDirection(localVel);
 
-
-        float motorTorque = throttle * enginePower;
-
-        if (speed < maxSpeed)
-        {
-            _colliderBL.motorTorque = motorTorque;
-            _colliderBR.motorTorque = motorTorque;
-        }
-        else
-        {
-            _colliderBL.motorTorque = 0f;
-            _colliderBR.motorTorque = 0f;
-        }
-
-        // -------- STEERING --------
-        float t = speed / maxSpeed;
-        t = Mathf.Clamp01(t);
-        float speedSteerLimit = Mathf.Lerp(maxSteerAngle, 6f, t);
-        float steerAngle = speedSteerLimit * steer;
-
-        _colliderFL.steerAngle = steerAngle;
-        _colliderFR.steerAngle = steerAngle;
-
-        // -------- BRAKES --------
-        if (keyboard.zKey.isPressed || (throttle < 0 && forwardSpeed > 1f))
-        {
-            _colliderFL.brakeTorque = brakeForce * 0.6f;
-            _colliderFR.brakeTorque = brakeForce * 0.6f;
-            _colliderBL.brakeTorque = brakeForce * 0.4f;
-            _colliderBR.brakeTorque = brakeForce * 0.4f;
-        }
-        else
-        {
-            _colliderFL.brakeTorque = 0f;
-            _colliderFR.brakeTorque = 0f;
-            _colliderBL.brakeTorque = 0f;
-            _colliderBR.brakeTorque = 0f;
-        }
-
-        // -------- DOWNFORCE --------
-        rb.AddForce(-transform.up * speed * downforce);
-
-        // -------- DRAG --------
-        rb.linearVelocity *= (1f - drag * Time.fixedDeltaTime);
-
-        // -------- VISUAL --------
-        UpdateWheel(_colliderFL, _transformFL);
-        UpdateWheel(_colliderFR, _transformFR);
-        UpdateWheel(_colliderBL, _transformBL);
-        UpdateWheel(_colliderBR, _transformBR);
+        // Обновление колёс
+        float wheelSpeed = rb.linearVelocity.magnitude * 360f;
+        UpdateWheel(_transformFL, wheelSpeed);
+        UpdateWheel(_transformFR, wheelSpeed);
+        UpdateWheel(_transformBL, wheelSpeed);
+        UpdateWheel(_transformBR, wheelSpeed);
     }
 
-    private void UpdateWheel(WheelCollider collider, Transform wheel)
+    private bool IsOnGround()
     {
-        Vector3 pos;
-        Quaternion rot;
-        collider.GetWorldPose(out pos, out rot);
-        wheel.position = pos;
-        wheel.rotation = rot;
+        // Проверяем, есть ли земля под машиной
+        float distanceToGround = 0.6f;
+        return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
+    }
+
+    private void UpdateWheel(Transform wheel, float speed)
+    {
+        if (wheel == null) return;
+
+        // Вращение вперёд/назад
+        wheel.Rotate(Vector3.right, speed * Time.fixedDeltaTime);
+
+        // Поворот передних колёс
+        if (wheel == _transformFL || wheel == _transformFR)
+        {
+            wheel.localRotation = Quaternion.Euler(
+                wheel.localRotation.eulerAngles.x,
+                steerInput * 30f,
+                wheel.localRotation.eulerAngles.z
+            );
+        }
     }
 }
