@@ -1689,6 +1689,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: user car
       objectReference: {fileID: 0}
+    - target: {fileID: 5624363027797404480, guid: 0aaad051ee43c48d2b31eb7bbdb989e7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6555,6 +6559,10 @@ PrefabInstance:
     - target: {fileID: 4605699192113848188, guid: 41970550a78ec4d7397b56fd0079fb84, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5159637241805111755, guid: 41970550a78ec4d7397b56fd0079fb84, type: 3}
+      propertyPath: inputType
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6222917476833877375, guid: 41970550a78ec4d7397b56fd0079fb84, type: 3}
       propertyPath: m_Name
