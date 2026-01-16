@@ -7,6 +7,14 @@ public class RaceTime : MonoBehaviour
     private float elapsedTime = 0f;
     private bool isRunning = true; 
 
+    
+    public void ResetTimer()
+    {
+        elapsedTime = 0f;
+        UpdateTimerUI();
+        isRunning = true;
+    }
+
     void Update()
     {
         if (isRunning)
@@ -26,13 +34,6 @@ public class RaceTime : MonoBehaviour
 
     public void StopTimer()
     {
-        isRunning = false;
-    }
-
-    public void ResetTimer()
-    {
-        elapsedTime = 0f;
-        UpdateTimerUI();
-        isRunning = true;
+        isRunning = false; 
     }
 }
