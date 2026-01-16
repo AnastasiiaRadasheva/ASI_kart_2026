@@ -8,15 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/menyTEST.unity
     guid: 5900d5d9b5cb7aa4b9746839f2a66eaa
-  - enabled: 0
-    path: Assets/Scenes/cart1.unity
-    guid: 4b8f26f88e7425748b504200973b7552
-  - enabled: 0
-    path: Assets/Scenes/cart2.unity
-    guid: b4060b8b30c7cdb478ce09bfb5224e11
-  - enabled: 0
-    path: Assets/Scenes/cart3.unity
-    guid: 319ff6ee494c0ec4ab50bf75048082e9
   - enabled: 1
     path: Assets/Scenes/1player/cart1.unity
     guid: 3b27c9fb7b891a643b0f89b1b128bd75
