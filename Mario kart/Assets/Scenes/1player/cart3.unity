@@ -1275,7 +1275,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1460675795157984282, guid: 713e494af4cde1f4497cca0f9b798c94, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2114657125}
+      addedObject: {fileID: 2114657128}
+    - targetCorrespondingSourceObject: {fileID: 7360405811155446487, guid: 713e494af4cde1f4497cca0f9b798c94, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2122675327}
   m_SourcePrefab: {fileID: 100100000, guid: 713e494af4cde1f4497cca0f9b798c94, type: 3}
 --- !u!1001 &190374072
 PrefabInstance:
@@ -18372,7 +18375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!114 &2114657125
+--- !u!114 &2114657128
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -18381,10 +18384,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2114657121}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c4ed790c3781904b9fb9e7475d76e3c, type: 3}
+  m_Script: {fileID: 11500000, guid: ac2419c081e0f51448cf384def1513c3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::cameracontrol
-  _car: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::LapCounter
+  laps: 0
+  lapsToWin: 3
+  lapText: {fileID: 2114657122}
 --- !u!1001 &2115854232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18476,6 +18481,35 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 5.2, z: 10}
   m_Center: {x: 5.000004, y: 2.6, z: 5}
+--- !u!1 &2122675323 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7360405811155446487, guid: 713e494af4cde1f4497cca0f9b798c94, type: 3}
+  m_PrefabInstance: {fileID: 188960047}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2122675325 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7540061010242280586, guid: 713e494af4cde1f4497cca0f9b798c94, type: 3}
+  m_PrefabInstance: {fileID: 188960047}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122675323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &2122675327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122675323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c14fb5ef97daa4180e5e6cc6e16878, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RaceTime
+  timerText: {fileID: 2122675325}
 --- !u!1001 &2124336067
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18771,11 +18805,11 @@ SceneRoots:
   - {fileID: 2113599152}
   - {fileID: 1683651293}
   - {fileID: 1352153411}
-  - {fileID: 335384572}
   - {fileID: 1819298983}
   - {fileID: 1557088734}
   - {fileID: 729402107}
   - {fileID: 826357578}
+  - {fileID: 335384572}
   - {fileID: 188960047}
   - {fileID: 1952105943}
   - {fileID: 1137484590}
