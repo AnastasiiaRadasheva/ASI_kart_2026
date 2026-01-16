@@ -95,10 +95,14 @@ public class Car2 : MonoBehaviour
     }
 
     private bool IsOnGround()
+
     {
-        // Проверяем, есть ли земля под машиной
+
+
         float distanceToGround = 0.6f;
+
         return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.1f);
+
     }
 
     private void UpdateWheel(Transform wheel, float speed)
