@@ -29,6 +29,7 @@ public class Car2 : MonoBehaviour
     private float motorInput;
     private float steerInput;
     private bool brakeInput;
+private bool handbrakeInput;
 
     private void Start()
     {
@@ -56,7 +57,8 @@ public class Car2 : MonoBehaviour
         steerInput = Keyboard.current.leftArrowKey.isPressed ? -1f : (Keyboard.current.rightArrowKey.isPressed ? 1f : 0f);
 
         // Ручник
-        brakeInput = Keyboard.current.zKey.isPressed;
+handbrakeInput = Keyboard.current.lKey.isPressed;
+
     }
 
     private void FixedUpdate()
@@ -92,7 +94,17 @@ public class Car2 : MonoBehaviour
         UpdateWheel(_transformFR, wheelSpeed);
         UpdateWheel(_transformBL, wheelSpeed);
         UpdateWheel(_transformBR, wheelSpeed);
+          ApplyHandbrake();
     }
+private void ApplyHandbrake()
+{
+    if (!handbrakeInput) return; 
+    Vector3 localVel = transform.InverseTransformDirection(rb.linearVelocity);
+
+    localVel.z = Mathf.Lerp(localVel.z, 0f, 0.05f); 
+    localVel.x = Mathf.Lerp(localVel.x, 0f, 0.02f); 
+    rb.linearVelocity = transform.TransformDirection(localVel);
+}
 
     private bool IsOnGround()
 
