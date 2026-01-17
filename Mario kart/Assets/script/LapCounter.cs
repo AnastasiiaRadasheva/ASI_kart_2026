@@ -31,35 +31,41 @@ public class LapCounter : MonoBehaviour
         UpdateText();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private float lastCheckpointTime = 0f;
+private float cooldownDuration = 1.0f; 
+
+private void OnTriggerEnter(Collider other)
+{
+    if (isFinished) return;
+
+    if (Time.time - lastCheckpointTime < cooldownDuration) return;
+
+    if (other.CompareTag("Checkpoint"))
     {
-        if (isFinished) return;
+        CheckpointID cp = other.GetComponent<CheckpointID>();
+        if (cp == null) return;
 
-        if (other.CompareTag("Checkpoint"))
+        if (!checkpointsPassed[cp.id])
         {
-            CheckpointID cp = other.GetComponent<CheckpointID>();
-            if (cp == null) return;
+            checkpointsPassed[cp.id] = true;
+            checkpointsCount++;
+            
+            lastCheckpointTime = Time.time; 
 
-            if (!checkpointsPassed[cp.id])
+            if (checkpointsCount >= 3)
             {
-                checkpointsPassed[cp.id] = true;
-                checkpointsCount++;
+                currentLaps++;
+                ResetCheckpoints();
+                UpdateText();
 
-                if (checkpointsCount >= 3)
+                if (currentLaps >= lapsToWin)
                 {
-                    currentLaps++;
-                    ResetCheckpoints();
-                    UpdateText();
-
-                    if (currentLaps >= lapsToWin)
-                    {
-                        FinishRace();
-                    }
+                    FinishRace();
                 }
             }
         }
     }
-
+}
     void FinishRace()
     {
         isFinished = true;

@@ -1,48 +1,69 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class CarProgress : MonoBehaviour
 {
+    [Header("Status")]
     public int passedRankingCheckpoints = 0; 
     
-    private HashSet<int> visitedOnCurrentLap = new HashSet<int>();
-    private static int totalCheckpointsInScene = -1;
-    private int lastCheckpointID = -1;
-    private float lastTimeChecked = 0f;
+    private Dictionary<int, int> checkpointPassCounts = new Dictionary<int, int>();
+    
+    private static List<int> allCheckpointIDs = null;
+    
+    private int currentCycle = 0;
+    private bool isFinished = false;
 
-    void Start()
+    void Awake()
     {
-        if (totalCheckpointsInScene == -1)
+        if (allCheckpointIDs == null)
         {
-            totalCheckpointsInScene = GameObject.FindGameObjectsWithTag("RankingCheckpoint").Length;
+            allCheckpointIDs = GameObject.FindGameObjectsWithTag("RankingCheckpoint")
+                .Select(obj => obj.GetInstanceID())
+                .ToList();
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isFinished) return;
+
         if (other.CompareTag("RankingCheckpoint"))
         {
             int id = other.gameObject.GetInstanceID();
 
-            if (id == lastCheckpointID && Time.time - lastTimeChecked < 0.1f)
+            if (!checkpointPassCounts.ContainsKey(id))
             {
-                return;
+                checkpointPassCounts.Add(id, 0);
             }
 
-            lastCheckpointID = id;
-            lastTimeChecked = Time.time;
-
-            if (!visitedOnCurrentLap.Contains(id))
+            if (checkpointPassCounts[id] == currentCycle)
             {
                 passedRankingCheckpoints++;
-                visitedOnCurrentLap.Add(id);
-                if (visitedOnCurrentLap.Count >= totalCheckpointsInScene * 0.9f)
+                checkpointPassCounts[id]++;
+
+                if (CheckCycleCompletion())
                 {
-                    visitedOnCurrentLap.Clear();
-                    visitedOnCurrentLap.Add(id);
+                    currentCycle++;
                 }
             }
         }
+    }
+
+    private bool CheckCycleCompletion()
+    {
+        int passedInCurrentCycle = 0;
+        foreach (var pair in checkpointPassCounts)
+        {
+            if (pair.Value > currentCycle) passedInCurrentCycle++;
+        }
+        
+        return passedInCurrentCycle >= allCheckpointIDs.Count * 0.9f;
+    }
+
+    public void StopProgress()
+    {
+        isFinished = true;
     }
 
     public int GetProgress()
