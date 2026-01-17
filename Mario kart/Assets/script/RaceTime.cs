@@ -6,7 +6,12 @@ public class RaceTime : MonoBehaviour
    public TextMeshProUGUI timerText; 
     private float elapsedTime = 0f;
     private bool isRunning = true; 
-
+    
+public void StartTimer()
+    {
+        elapsedTime = 0f;
+        isRunning = true;
+    }
     
     public void ResetTimer()
     {
