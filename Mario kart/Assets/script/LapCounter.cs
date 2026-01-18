@@ -22,18 +22,19 @@ public class LapCounter : MonoBehaviour
     private static Dictionary<GameObject, string> finishTimes = new Dictionary<GameObject, string>();
 
     private RaceTime timerScript;
-    private static int playersFinished = 0;
 
     private int lastRankCheckpointID = -1;
     private Dictionary<CheckpointID, float> lastHitTime = new Dictionary<CheckpointID, float>();
     private float minTimeBetweenHits = 0.05f;
 
+    private static List<LapCounter> activePlayers = new List<LapCounter>();
+
     void Start()
     {
         timerScript = FindObjectOfType<RaceTime>();
         if (winPanel != null) winPanel.SetActive(false);
-        playersFinished = 0;
         checkpointsPassed = new bool[numberOfLapCheckpoints];
+        if (!activePlayers.Contains(this)) activePlayers.Add(this);
         UpdateText();
     }
 
@@ -82,23 +83,36 @@ public class LapCounter : MonoBehaviour
     void FinishRace()
     {
         isFinished = true;
-        if (timerScript != null) personalFinishTime = timerScript.timerText.text;
-        if (!finishTimes.ContainsKey(gameObject)) finishTimes.Add(gameObject, personalFinishTime);
-        playersFinished++;
 
-        if (gameMode == 1)
+        if (timerScript != null)
+            personalFinishTime = timerScript.timerText.text;
+
+        if (!finishTimes.ContainsKey(gameObject))
+            finishTimes.Add(gameObject, personalFinishTime);
+
+        if (gameMode == 2)
+        {
+            bool allFinished = true;
+            foreach (var p in activePlayers)
+            {
+                if (!p.isFinished)
+                {
+                    allFinished = false;
+                    break;
+                }
+            }
+
+            if (allFinished)
+            {
+                timerScript.StopTimer();
+                foreach (var p in activePlayers)
+                    p.ShowResultIfQualified();
+            }
+        }
+        else
         {
             timerScript.StopTimer();
             ShowResultIfQualified();
-        }
-        else if (gameMode == 2)
-        {
-            if (playersFinished >= 2)
-            {
-                timerScript.StopTimer();
-                LapCounter[] players = FindObjectsOfType<LapCounter>();
-                foreach (var p in players) p.ShowResultIfQualified();
-            }
         }
     }
 
