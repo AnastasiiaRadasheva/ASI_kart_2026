@@ -5,75 +5,85 @@ using System.Linq;
 
 public class LapCounter : MonoBehaviour
 {
-    [Header("Race Settings")]
     public int lapsToWin = 3;
-    public int gameMode = 1; // 1 = Single, 2 = Duo
+    public int gameMode = 1;
     public int currentLaps = 0;
 
-    [Header("UI References")]
     public TextMeshProUGUI lapText;
     public GameObject winPanel;
     public TextMeshProUGUI resultText;
 
-    private bool[] checkpointsPassed = new bool[3];
+    [SerializeField] private int numberOfLapCheckpoints = 3;
+    private bool[] checkpointsPassed;
     private int checkpointsCount = 0;
+
     private bool isFinished = false;
-        private string personalFinishTime; 
+    private string personalFinishTime;
+    private static Dictionary<GameObject, string> finishTimes = new Dictionary<GameObject, string>();
 
     private RaceTime timerScript;
     private static int playersFinished = 0;
+
+    private int lastRankCheckpointID = -1;
+    private Dictionary<CheckpointID, float> lastHitTime = new Dictionary<CheckpointID, float>();
+    private float minTimeBetweenHits = 0.05f;
 
     void Start()
     {
         timerScript = FindObjectOfType<RaceTime>();
         if (winPanel != null) winPanel.SetActive(false);
-        playersFinished = 0; 
+        playersFinished = 0;
+        checkpointsPassed = new bool[numberOfLapCheckpoints];
         UpdateText();
     }
 
-    private float lastCheckpointTime = 0f;
-private float cooldownDuration = 1.0f; 
-
-private void OnTriggerEnter(Collider other)
-{
-    if (isFinished) return;
-
-    if (Time.time - lastCheckpointTime < cooldownDuration) return;
-
-    if (other.CompareTag("Checkpoint"))
+    private void OnTriggerEnter(Collider other)
     {
-        CheckpointID cp = other.GetComponent<CheckpointID>();
-        if (cp == null) return;
+        if (isFinished) return;
 
-        if (!checkpointsPassed[cp.id])
+        if (other.CompareTag("Checkpoint"))
         {
-            checkpointsPassed[cp.id] = true;
-            checkpointsCount++;
-            
-            lastCheckpointTime = Time.time; 
+            CheckpointID cp = other.GetComponent<CheckpointID>();
+            if (cp == null) return;
+            if (cp.id < 0 || cp.id >= checkpointsPassed.Length) return;
 
-            if (checkpointsCount >= 3)
+            if (lastHitTime.ContainsKey(cp) && Time.time - lastHitTime[cp] < minTimeBetweenHits) return;
+            lastHitTime[cp] = Time.time;
+
+            if (!checkpointsPassed[cp.id])
             {
-                currentLaps++;
-                ResetCheckpoints();
-                UpdateText();
+                checkpointsPassed[cp.id] = true;
+                checkpointsCount++;
 
-                if (currentLaps >= lapsToWin)
+                if (checkpointsCount >= checkpointsPassed.Length)
                 {
-                    FinishRace();
+                    currentLaps++;
+                    ResetCheckpoints();
+                    UpdateText();
+
+                    if (currentLaps >= lapsToWin)
+                        FinishRace();
                 }
             }
         }
+
+        if (other.CompareTag("RankCheckpoint"))
+        {
+            CheckpointID cp = other.GetComponent<CheckpointID>();
+            if (cp == null) return;
+            if (lastHitTime.ContainsKey(cp) && Time.time - lastHitTime[cp] < minTimeBetweenHits) return;
+            lastHitTime[cp] = Time.time;
+
+            if (cp.id == lastRankCheckpointID) return;
+            lastRankCheckpointID = cp.id;
+        }
     }
-}
+
     void FinishRace()
     {
         isFinished = true;
-        
-        if (timerScript != null)
-        {
-            personalFinishTime = timerScript.timerText.text;
-        }
+        if (timerScript != null) personalFinishTime = timerScript.timerText.text;
+        if (!finishTimes.ContainsKey(gameObject)) finishTimes.Add(gameObject, personalFinishTime);
         playersFinished++;
 
         if (gameMode == 1)
@@ -81,12 +91,14 @@ private void OnTriggerEnter(Collider other)
             timerScript.StopTimer();
             ShowResultIfQualified();
         }
-        else if (gameMode == 2 && playersFinished >= 2)
+        else if (gameMode == 2)
         {
-            timerScript.StopTimer();
-            
-            LapCounter[] players = FindObjectsOfType<LapCounter>();
-            foreach(var p in players) p.ShowResultIfQualified();
+            if (playersFinished >= 2)
+            {
+                timerScript.StopTimer();
+                LapCounter[] players = FindObjectsOfType<LapCounter>();
+                foreach (var p in players) p.ShowResultIfQualified();
+            }
         }
     }
 
@@ -94,27 +106,21 @@ private void OnTriggerEnter(Collider other)
     {
         int myRank = GetMyRank();
         bool isWinner = false;
-
         if (gameMode == 1 && myRank == 1) isWinner = true;
         if (gameMode == 2 && myRank <= 3) isWinner = true;
 
         if (winPanel != null)
         {
             winPanel.SetActive(true);
-            
+            string myTime = finishTimes.ContainsKey(gameObject) ? finishTimes[gameObject] : personalFinishTime;
             string status = isWinner ? "VICTORY!" : "RACE OVER";
-            resultText.text = status + "\n" +
-                              "Rank: " + myRank + "\n" +
-                              "Your Time: " + personalFinishTime;
+            resultText.text = status + "\n" + "Rank: " + myRank + "\n" + "Your Time: " + myTime;
         }
     }
 
     int GetMyRank()
     {
-        var cars = FindObjectsOfType<CarProgress>()
-            .OrderByDescending(c => c.GetProgress())
-            .ToList();
-
+        var cars = FindObjectsOfType<CarProgress>().OrderByDescending(c => c.GetProgress()).ToList();
         for (int i = 0; i < cars.Count; i++)
         {
             if (cars[i].gameObject == this.gameObject) return i + 1;
@@ -130,7 +136,6 @@ private void OnTriggerEnter(Collider other)
 
     void UpdateText()
     {
-        if (lapText != null)
-            lapText.text = "Lap: " + currentLaps + " / " + lapsToWin;
+        if (lapText != null) lapText.text = "Lap: " + currentLaps + " / " + lapsToWin;
     }
 }

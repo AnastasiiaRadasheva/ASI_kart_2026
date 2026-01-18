@@ -49,17 +49,17 @@ private bool handbrakeInput;
     }
 
     private void Update()
-    {
-        // Газ / Тормоз
-        motorInput = Keyboard.current.upArrowKey.isPressed ? 1f : (Keyboard.current.downArrowKey.isPressed ? -1f : 0f);
+{
+    motorInput =
+        Keyboard.current.wKey.isPressed ? 1f :
+        (Keyboard.current.sKey.isPressed ? -1f : 0f);
 
-        // Поворот
-        steerInput = Keyboard.current.leftArrowKey.isPressed ? -1f : (Keyboard.current.rightArrowKey.isPressed ? 1f : 0f);
+    steerInput =
+        Keyboard.current.aKey.isPressed ? -1f :
+        (Keyboard.current.dKey.isPressed ? 1f : 0f);
+    handbrakeInput = Keyboard.current.tKey.isPressed;
+}
 
-        // Ручник
-handbrakeInput = Keyboard.current.tKey.isPressed;
-
-    }
 
     private void FixedUpdate()
     {
