@@ -68,7 +68,7 @@ public class LapCounter : MonoBehaviour
             }
         }
 
-        if (other.CompareTag("RankCheckpoint"))
+        if (other.CompareTag("RankingCheckpoint"))
         {
             CheckpointID cp = other.GetComponent<CheckpointID>();
             if (cp == null) return;
