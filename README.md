@@ -1,11 +1,12 @@
 # ASI Kart 2026 — Mario Kart-laadne mäng (Unity)
 
-**Projekt:** ASI Karika 2026 koduvoor — “ASI Kart”
+**Projekt:** ASI Karika 2026 koduvoor — “ASI Kart”  
 **Engine:** Unity (C#)  
-**Projekti kaust:** `Mario kart`
+**Projekti kaust:** `Mario kart`  
 
-Lühikirjeldus 
-Mario Kart stiilis võidusõidumäng, kus mängija sõidab kartiga ringrajal ning võistleb arvuti juhitavate vastastega. 
+## Lühikirjeldus
+
+Mario Kart stiilis võidusõidumäng, kus mängija sõidab kartiga ringrajal ning võistleb arvuti juhitavate vastastega.  
 Võitja selgub ringide arvu ja finišeerimise järjekorra põhjal.
 
 ---
@@ -20,121 +21,154 @@ Võitja selgub ringide arvu ja finišeerimise järjekorra põhjal.
 
 ### 2) Kasutajaliides
 - Ekraanil kuvatakse: koht (position) ja ringide arv (laps)
-- On minikaart
+- Olemas on minimap (minikaart)
 
 ### 3) Mängitavus
 - Loogiline liikumine, pööramine ja kiirus
-- Checkpointid + respawn viimases checkpointis
-- Reset ja Pause
+- Checkpointid ja respawn viimases checkpointis
+- Reset ja Pause funktsioon
 
 ---
 
-## Kiirkäivitus (Windows mängijale)
+## Kiirkäivitus (Windows build)
 
-Kui te ei soovi Unityt installida, saab Windowsi valmisbuildi alla laadida siit:  
-[DOWL game : (Windows)](https://drive.google.com/file/d/1qRN5KkBxE3u1cW3Wmh6MPqMeaPtN2yyV/view?usp=sharing)
+Kui Unity installimine ei ole vajalik, saab valmis Windows buildi alla laadida siit:
+
+**Download (Windows):**  
+https://drive.google.com/file/d/1qRN5KkBxE3u1cW3Wmh6MPqMeaPtN2yyV/view
 
 ---
 
-## Arenduskeskkond / Development setup (Unity)
+## Arenduskeskkond (Unity)
 
-### 1) Vajalikud programmid
+### Vajalikud programmid
+
 - **Unity Hub**
-- (valikuline) Visual Studio / Rider C# jaoks
+- (Valikuline) Visual Studio või Rider C# skriptide jaoks
 
-### 2) Projekti avamine
-1. Ava **Unity Hub**
-2. **Add project** → vali kaust **`Mario kart`**
-3. Unity laeb paketid automaatselt
 ---
 
-## Käivitamine / Run
+### Projekti avamine
 
-### Variant A — Unity Editoris
-1. Lae alla zip-fail
-2. Pakkige lahti
-3. käivitage fail nimega „Mario-Kart“
-### Variant B — Build (exe)
+1. Ava **Unity Hub**
+2. Vajuta **Add project**
+3. Vali kaust **`Mario kart`**
+4. Unity laeb vajalikud paketid automaatselt
+
+---
+
+## Käivitamine
+
+### Variant A — Valmis mäng (Build)
+
+1. Lae alla ZIP-fail
+2. Paki lahti
+3. Käivita fail **Mario-Kart.exe**
+
+---
+
+### Variant B — Unity Editoris
+
 1. Ava projekt Unitys
-2. Ava stseen: `[SceneNameHere]` (nt `MainMenu`)
+2. Ava stseen **MainMenu**
 3. Vajuta **Play**
 
 ---
 
-## Juhtimine / Controls
+## Juhtimine (Controls)
 
-**Keyboard (näide — täitke vastavalt oma mängule):**
-- W / ↑ — gaas
-- S / ↓ — pidur / tagurdus
-- A / ← — vasakule
-- D / → — paremale
-- T / L — [drift]  
-- Esc — Pause
-- R — Reset (respawn viimases checkpointis)
+**Klaviatuur:**
 
-> Kui teie juhtimine on teistsugune — muutke siit.
+- **W / ↑** — Kiirendus
+- **S / ↓** — Pidur / tagurdus
+- **A / ←** — Vasakule pööramine
+- **D / →** — Paremale pööramine
+- **T / L** — Drift
+- **ESC** — Pause
+- **R** — Reset (respawn viimases checkpointis)
 
 ---
 
-## Mängureeglid / Gameplay rules
-- Võitmiseks tuleb läbida **[X] ringi** ja lõpetada enne AI vastaseid.
-- Respawn kasutab viimast läbitud checkpointi.
+## Mängureeglid
+
+- Võitmiseks tuleb läbida **3 ringi** ja lõpetada enne AI vastaseid.
+- Respawn süsteem kasutab viimast läbitud checkpointi.
+- Pause peatab mängu.
+- Reset viib mängija tagasi viimasesse checkpointi.
+
 ---
 
 ## Projekti struktuur
 
-Unity standardstruktuur (olulised):
+Olulisemad kaustad:
+
 - `Mario kart/Assets/` — kood, stseenid, mudelid, helid, UI
 - `ProjectVersion.txt` — Unity versioon
+
 ---
 
-## Autoriõigused / Copyright & credits (KOHUSTUSLIK)
+## Autoriõigused ja kasutatud assetid
 
+Kõik kasutatud assetid pärinevad Kenney.nl tasuta varade kogust ja on CC0 litsentsiga.
 
-# ASSET PACK 1 — Hexagon Kit
+---
+
+### ASSET PACK 1 — Hexagon Kit
 
 Source: https://kenney.nl/assets/hexagon-kit  
 Author: Kenney (Kenney.nl)  
 License: Public Domain (CC0)  
-Used Assets:
-- Background elements
 
+Used files:
 - Assets/allmodels/Models(landscape)
 
-=================================
+---
 
-# ASSET PACK 2 — Racing Kit
+### ASSET PACK 2 — Racing Kit
 
 Source: https://kenney.nl/assets/racing-kit  
 Author: Kenney (Kenney.nl)  
 License: Public Domain (CC0)  
-Used Assets:
-- Racing track decorations
 
+Used files:
 - Assets/allmodels/Models
 
-=================================
+---
 
-# ASSET PACK 3 — Mini Dungeon
+### ASSET PACK 3 — Mini Dungeon
 
 Source: https://kenney.nl/assets/mini-dungeon  
 Author: Kenney (Kenney.nl)  
 License: Public Domain (CC0)  
 
+Used files:
 - Assets/allmodels/Models
-=================================
 
-# ASSET PACK 4 — City Kit Roads
+---
+
+### ASSET PACK 4 — City Kit Roads
 
 Source: https://kenney.nl/assets/city-kit-roads  
 Author: Kenney (Kenney.nl)  
 License: Public Domain (CC0)  
 
-- Assets/Models(3kart)
-
+Used files:
+- Assets/allmodels/Models(3kart)
 
 ---
+### ASSET PACK 5 — Modular-buildings
 
-## Autorid / Authors
-- 
-- [Teie nimi 2]
+Source: https://kenney.nl/assets/modular-buildings
+Author: Kenney (Kenney.nl)  
+License: Public Domain (CC0)  
+
+Used files:
+- Assets/allmodels/Models(3new)
+
+---
+## Autorid
+
+- Anastasiia Radasheva  
+- Oleksandra Ryshniak  
+- Adriana Pikaljov  
+- Mariia Posvystak  
