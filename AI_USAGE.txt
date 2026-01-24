@@ -1,0 +1,104 @@
+AI_USAGE.txt — ASI Kart 2026
+
+Kasutatud AI tööriist:
+- ChatGPT (OpenAI)
+
+========================================
+AI kasutamise üldkirjeldus
+
+ChatGPT-d kasutati arenduse käigus ainult abivahendina vigade otsimiseks, parandamiseks ning Unity ja C#-ga seotud tehniliste küsimuste selgitamiseks.
+
+AI-d EI kasutatud mängusüsteemide, mängumehaanika, tasemete, varade (assetite) ega kasutajaliidese automaatseks genereerimiseks.  
+Kõik mängu põhiloogika, arhitektuurilised otsused, parameetrite seadistamine ja lõplik koodi integreerimine loodi ja viidi ellu projekti meeskonna poolt käsitsi.
+
+AI abi kasutati peamiselt selleks, et:
+- Tuvastada levinud programmeerimisvigu.
+- Selgitada Unity API käitumist.
+- Soovitada võimalikke vigade parandusi.
+- Parandada skriptide stabiilsust ja loetavust.
+- Mõista ootamatut füüsika käitumist.
+
+========================================
+Valdkonnad, kus AI abi kasutati
+
+----------------------------------------
+1) Mängija sõiduki juhtimine ja liikumisloogika
+
+Seotud skriptid:
+- Car1.cs  
+- Car2.cs  
+- CarController.cs  
+- CarController1.cs  
+- CarWASDController_NewInput.cs  
+- ArcadeCar.cs  
+- LapCounter.cs  
+- MarioKartController.cs  
+
+Kasutuse kirjeldus:
+
+ChatGPT-d kasutati klaviatuuri sisendi (Unity New Input System) vigade silumiseks, näiteks olukordades, kus sisend ei registreerunud korrektselt või tekkisid konfliktid erinevate sisendite vahel.
+
+Täiendavalt kasutati abi Rigidbody-ga seotud probleemide lahendamiseks, sealhulgas:
+- Ootamatud kiirenduse hüpped.
+- Vale kiiruse piiramine.
+- Ebastabiilne pööramine suurel kiirusel.
+- Järsud ja ebaloomulikud pöörded.
+
+AI abi kasutati ka rataste visuaalse sünkroniseerimise vigade leidmiseks, näiteks WheelCollider.GetWorldPose() vale kasutuse ja ratta mudelite nihkumise korral.
+
+----------------------------------------
+2) AI vastaste navigeerimine ja vahepunktide süsteem
+
+Seotud skript:
+- CarAIWaypoint.cs  
+
+Kasutuse kirjeldus:
+
+ChatGPT-d kasutati vahepunktide järgimise vigade silumiseks, näiteks:
+- AI sõidukite vahepunktide vahelejätmine.
+- Vale pööramissuund sihtpunkti poole liikudes.
+- Kurvide ületamine liiga suure kiirusega.
+
+Lisaks kasutati abi pidurdamiskäitumise mõistmiseks olukordades, kus AI ületas maksimaalse kiiruse piiri, ning stabiilsuse parandamiseks (raskuskese, anti-roll loogika).
+
+Takistuste vältimise loogika testiti ja täiustati käsitsi, kuid AI abil tuvastati kiirte (raycast) seadistuse ja kihimaskidega seotud vead.
+
+----------------------------------------
+3) Ringiloendur, vahepunktid ja võistluse lõpu kasutajaliides
+
+Seotud skript:
+- LapCounter.cs  
+
+Kasutuse kirjeldus:
+
+ChatGPT-d kasutati loogikavigade silumiseks, mis olid seotud:
+- Vahepunktide triggerite tuvastamisega.
+- Mitmekordsete triggeri aktiveerimistega lühikese aja jooksul.
+- Vale ringide loendamise loogikaga.
+- Võistluse lõpu sündmuse mitteaktiveerumisega.
+
+AI abil selgitati ka kasutajaliidese uuendamise loogikat ja parandati olukordi, kus võidupaneel või edetabel ei uuenenud korrektselt.
+
+Lõplikud mängureeglid, ringide arv ja UI paigutus määrati ja realiseeriti täielikult meeskonna poolt.
+
+----------------------------------------
+4) Minikaardi süsteem ja kaamera jälgimine
+
+Seotud skriptid:
+- MinimapPlayerIconAuto.cs  
+- FollowCamera.cs  
+
+Kasutuse kirjeldus:
+
+ChatGPT-d kasutati maailmaruumi koordinaatide teisendamise vigade silumiseks minikaardi kasutajaliidese koordinaatideks.
+
+Kaamera jälgimisloogika implementeeriti ja häälestati käsitsi, kuid AI abil parandati kaamera värisemise, silumise (smoothing) seadistuse ja pöördenurga joondamise vigu.
+
+----------------------------------------
+Kokkuvõte
+
+ChatGPT-d kasutati rangelt tehnilise abivahendina vigade silumiseks ja probleemide lahendamiseks.
+
+Kõik mängumehaanika, füüsika seadistused, raja kujundus, AI käitumise parameetrid, kasutajaliidese disain ja lõplik teostus loodi ja kohandati projekti meeskonna poolt käsitsi.
+
+Ühtegi kunsti-, 3D-mudeli-, tekstuuri-, heli- ega UI-elementi ei genereeritud AI abil.
