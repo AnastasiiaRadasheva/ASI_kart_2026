@@ -84,9 +84,10 @@ W / ↑ | Accelerate
 S / ↓ | Brake / Reverse  
 A / ← | Turn Left  
 D / → | Turn Right  
-T / L | Drift  
+T / L | Handbrake
 ESC | Pause  
-R | Reset (respawn at last checkpoint)  
+F / L |  (respawn at last checkpoint)  
+R | Reset (ALL LEVEL!!!)  
 
 ---
 
