@@ -1,170 +1,176 @@
-# ASI Kart 2026 — Mario Kart-laadne mäng (Unity)
+# ASI Kart 2026 — Mario Kart-Style Game (Unity)
 
-**Projekt:** ASI Karika 2026 koduvoor — “ASI Kart”  
+**Project:** ASI Cup 2026 Qualifier — “ASI Kart”  
 **Engine:** Unity (C#)  
-**Projekti kaust:** `Mario kart`  
-
-## Lühikirjeldus
-
-Mario Kart stiilis võidusõidumäng, kus mängija sõidab kartiga ringrajal ning võistleb arvuti juhitavate vastastega.  
-Võitja selgub ringide arvu ja finišeerimise järjekorra põhjal.
+**Project Folder:** `Mario kart`  
 
 ---
 
-## Nõuete katvus
+## Description
 
-### 1) Mängu põhiloogika
-- Rada, millel saab ringe sõita
-- Mängija juhitav kart
-- Vähemalt 2 AI vastast (arvuti juhitavad kartid)
-- Ringide loendamine ja võitja määramine
-
-### 2) Kasutajaliides
-- Ekraanil kuvatakse: koht (position) ja ringide arv (laps)
-- Olemas on minimap (minikaart)
-
-### 3) Mängitavus
-- Loogiline liikumine, pööramine ja kiirus
-- Checkpointid ja respawn viimases checkpointis
-- Reset ja Pause funktsioon
+ASI Kart is a Mario Kart–style racing game where the player drives a kart on a race track and competes against AI-controlled opponents.  
+The winner is determined based on completed laps and finishing position.
 
 ---
 
-## Kiirkäivitus (Windows build)
+## Features
 
-Kui Unity installimine ei ole vajalik, saab valmis Windows buildi alla laadida siit:
+### Core Gameplay
+- Race track with lap system  
+- Player-controlled kart  
+- At least 2 AI opponents  
+- Lap counter and winner detection  
 
-**Download (Windows):**  
-https://drive.google.com/file/d/1qRN5KkBxE3u1cW3Wmh6MPqMeaPtN2yyV/view
+### User Interface
+- Position and lap counter display  
+- Minimap  
+- Background music  
 
----
-
-## Arenduskeskkond (Unity)
-
-### Vajalikud programmid
-
-- **Unity Hub**
-- (Valikuline) Visual Studio või Rider C# skriptide jaoks
-
----
-
-### Projekti avamine
-
-1. Ava **Unity Hub**
-2. Vajuta **Add project**
-3. Vali kaust **`Mario kart`**
-4. Unity laeb vajalikud paketid automaatselt
+### Gameplay Mechanics
+- Smooth movement, steering and speed handling  
+- Checkpoints with respawn system  
+- Reset and Pause functions  
 
 ---
 
-## Käivitamine
+## Quick Start (Windows Build)
 
-### Variant A — Valmis mäng (Build)
+You can download and play the ready Windows build without installing Unity:
 
-1. Lae alla ZIP-fail
-2. Paki lahti
-3. Käivita fail **Mario-Kart.exe**
+**Download:**  
+https://drive.google.com/file/d/1qRN5KkBxE3u1cW3Wmh6MPqMeaPtN2yyV/view  
 
----
+### How to Run
 
-### Variant B — Unity Editoris
-
-1. Ava projekt Unitys
-2. Ava stseen **MainMenu**
-3. Vajuta **Play**
+1. Download the ZIP file  
+2. Extract it  
+3. Run `Mario-Kart.exe`  
 
 ---
 
-## Juhtimine (Controls)
+## Development Setup (Unity)
 
-**Klaviatuur:**
+### Required Software
 
-- **W / ↑** — Kiirendus
-- **S / ↓** — Pidur / tagurdus
-- **A / ←** — Vasakule pööramine
-- **D / →** — Paremale pööramine
-- **T / L** — Drift
-- **ESC** — Pause
-- **R** — Reset (respawn viimases checkpointis)
+- Unity Hub  
+- (Optional) Visual Studio or Rider  
 
 ---
 
-## Mängureeglid
+### Opening the Project
 
-- Võitmiseks tuleb läbida **3 ringi** ja lõpetada enne AI vastaseid.
-- Respawn süsteem kasutab viimast läbitud checkpointi.
-- Pause peatab mängu.
-- Reset viib mängija tagasi viimasesse checkpointi.
-
----
-
-## Projekti struktuur
-
-Olulisemad kaustad:
-
-- `Mario kart/Assets/` — kood, stseenid, mudelid, helid, UI
-- `ProjectVersion.txt` — Unity versioon
+1. Open Unity Hub  
+2. Click **Add Project**  
+3. Select folder `Mario kart`  
+4. Unity will load all required packages automatically  
 
 ---
 
-## Autoriõigused ja kasutatud assetid
+## Running in Unity Editor
 
-Kõik kasutatud assetid pärinevad Kenney.nl tasuta varade kogust ja on CC0 litsentsiga.
+1. Open the project  
+2. Open scene `MainMenu`  
+3. Press **Play**  
 
 ---
 
-### ASSET PACK 1 — Hexagon Kit
+## Controls
+
+### Keyboard
+
+| Key | Action |
+-----|--------
+W / ↑ | Accelerate  
+S / ↓ | Brake / Reverse  
+A / ← | Turn Left  
+D / → | Turn Right  
+T / L | Drift  
+ESC | Pause  
+R | Reset (respawn at last checkpoint)  
+
+---
+
+## Game Rules
+
+- Complete **3 laps** to finish the race  
+- Player must finish before AI opponents to win  
+- Respawn system uses the last checkpoint  
+- Pause freezes the game  
+- Reset moves player back to the last checkpoint  
+
+---
+
+## Project Structure
+
+Important folders:
+
+- `Mario kart/Assets/` — scripts, scenes, models, audio, UI  
+- `ProjectVersion.txt` — Unity version info  
+
+---
+
+## Assets & Licenses
+
+All assets were taken from **Kenney.nl** free asset packs and are licensed under **CC0 (Public Domain)**.
+
+---
+
+### Asset Pack 1 — Hexagon Kit
 
 Source: https://kenney.nl/assets/hexagon-kit  
-Author: Kenney (Kenney.nl)  
-License: Public Domain (CC0)  
+Author: Kenney  
+License: CC0  
 
 Used files:
-- Assets/allmodels/Models(landscape)
+- Assets/allmodels/Models(landscape)  
 
 ---
 
-### ASSET PACK 2 — Racing Kit
+### Asset Pack 2 — Racing Kit
 
 Source: https://kenney.nl/assets/racing-kit  
-Author: Kenney (Kenney.nl)  
-License: Public Domain (CC0)  
+Author: Kenney  
+License: CC0  
 
 Used files:
-- Assets/allmodels/Models
+- Assets/allmodels/Models  
 
 ---
 
-### ASSET PACK 3 — Mini Dungeon
+### Asset Pack 3 — Mini Dungeon
 
 Source: https://kenney.nl/assets/mini-dungeon  
-Author: Kenney (Kenney.nl)  
-License: Public Domain (CC0)  
+Author: Kenney  
+License: CC0  
 
 Used files:
-- Assets/allmodels/Models
+- Assets/allmodels/Models  
 
 ---
 
-### ASSET PACK 4 — City Kit Roads
+### Asset Pack 4 — City Kit Roads
 
 Source: https://kenney.nl/assets/city-kit-roads  
-Author: Kenney (Kenney.nl)  
-License: Public Domain (CC0)  
+Author: Kenney  
+License: CC0  
 
 Used files:
-- Assets/allmodels/Models(3kart)
+- Assets/allmodels/Models(3kart)  
+
 ---
-### ASSET PACK 5 — Modular-buildings
 
-Source: https://kenney.nl/assets/modular-buildings
-Author: Kenney (Kenney.nl)  
-License: Public Domain (CC0)  
+### Asset Pack 5 — Modular Buildings
+
+Source: https://kenney.nl/assets/modular-buildings  
+Author: Kenney  
+License: CC0  
 
 Used files:
-- Assets/allmodels/Models(3new)
+- Assets/allmodels/Models(3new)  
 
-All assets were used in scenes:
+---
+
+## Scenes Using Assets
 
 Assets/Scenes/1player/cart1
 Assets/Scenes/1player/cart2
@@ -172,12 +178,31 @@ Assets/Scenes/1player/cart3
 Assets/Scenes/2player/cart1
 Assets/Scenes/2player/cart2
 Assets/Scenes/2player/cart3
+---
 
+## Music
+
+All music is licensed under the Pixabay Content License.
+
+### Main Menu
+https://pixabay.com/music/video-games-a-big-world-238961/
+
+### Track 1
+https://pixabay.com/music/video-games-the-return-of-the-8-bit-era-301292/
+
+### Track 2
+https://pixabay.com/music/video-games-fun-with-my-8-bit-game-301278/
+
+### Track 3
+https://pixabay.com/music/video-games-retro-8bit-happy-videogame-music-243997/
 
 ---
-## Autorid
+
+## Authors
 
 - Anastasiia Radasheva  
 - Oleksandra Ryshniak  
 - Adriana Pikaljov  
 - Mariia Posvystak  
+
+---
