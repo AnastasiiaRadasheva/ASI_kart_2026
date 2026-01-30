@@ -1291,7 +1291,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3080708496041955297, guid: 240b9a40744be4bbba9403af66f6902f, type: 3}
       propertyPath: m_Name
-      value: ai
+      value: Milana
       objectReference: {fileID: 0}
     - target: {fileID: 4341800960063960662, guid: 240b9a40744be4bbba9403af66f6902f, type: 3}
       propertyPath: m_Enabled
@@ -2610,7 +2610,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878498427763534343, guid: 0aaad051ee43c48d2b31eb7bbdb989e7, type: 3}
       propertyPath: m_Name
-      value: user car
+      value: Matti
       objectReference: {fileID: 0}
     - target: {fileID: 5624363027797404480, guid: 0aaad051ee43c48d2b31eb7bbdb989e7, type: 3}
       propertyPath: maxSpeed
@@ -9241,7 +9241,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.77778
+      value: -17.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14110,7 +14110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15.88778
+      value: -15.47
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19945,7 +19945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -30.87
+      value: -28.46
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24379,7 +24379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -24.5
+      value: -21.24
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
@@ -24662,7 +24662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3607511447448125171, guid: 487ff880023b8864ead898b2e08e3810, type: 3}
       propertyPath: m_Name
-      value: CarRoot
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5395365998823312301, guid: 487ff880023b8864ead898b2e08e3810, type: 3}
       propertyPath: m_Size.x
@@ -24674,7 +24674,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5395365998823312301, guid: 487ff880023b8864ead898b2e08e3810, type: 3}
       propertyPath: m_Size.z
-      value: 0.33081228
+      value: 0.50618
       objectReference: {fileID: 0}
     - target: {fileID: 5395365998823312301, guid: 487ff880023b8864ead898b2e08e3810, type: 3}
       propertyPath: m_Enabled
@@ -24686,11 +24686,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5395365998823312301, guid: 487ff880023b8864ead898b2e08e3810, type: 3}
       propertyPath: m_Center.y
-      value: -0.037688322
+      value: -0.037688293
       objectReference: {fileID: 0}
     - target: {fileID: 5395365998823312301, guid: 487ff880023b8864ead898b2e08e3810, type: 3}
       propertyPath: m_Center.z
-      value: 0.01953934
+      value: -0.06814457
       objectReference: {fileID: 0}
     - target: {fileID: 5938447178043814561, guid: 487ff880023b8864ead898b2e08e3810, type: 3}
       propertyPath: maxSpeed
@@ -27049,7 +27049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -24.5
+      value: -20.76
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
@@ -38192,7 +38192,7 @@ PrefabInstance:
       objectReference: {fileID: 1180365460}
     - target: {fileID: 6222917476833877375, guid: 41970550a78ec4d7397b56fd0079fb84, type: 3}
       propertyPath: m_Name
-      value: car
+      value: Rasmus
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -2978,7 +2978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878498427763534343, guid: 0aaad051ee43c48d2b31eb7bbdb989e7, type: 3}
       propertyPath: m_Name
-      value: user car
+      value: Martin
       objectReference: {fileID: 0}
     - target: {fileID: 5624363027797404480, guid: 0aaad051ee43c48d2b31eb7bbdb989e7, type: 3}
       propertyPath: maxSpeed
@@ -6706,15 +6706,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 63.2
+      value: 68.32
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -22.3
+      value: -21.64
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 85.4
+      value: 85.26
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9613,15 +9613,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.2
+      value: -20.18
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -18.77778
+      value: -21.64
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 24.5
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalRotation.w
@@ -12969,7 +12969,7 @@ PrefabInstance:
       objectReference: {fileID: 1582938065}
     - target: {fileID: 6222917476833877375, guid: 41970550a78ec4d7397b56fd0079fb84, type: 3}
       propertyPath: m_Name
-      value: user car2
+      value: Sebastian
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15218,7 +15218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -24.5
+      value: -21.88
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
@@ -17821,7 +17821,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -30.87
+      value: -21.63
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
@@ -23532,7 +23532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3607511447448125171, guid: 487ff880023b8864ead898b2e08e3810, type: 3}
       propertyPath: m_Name
-      value: CarRoot
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5395365998823312301, guid: 487ff880023b8864ead898b2e08e3810, type: 3}
       propertyPath: m_Size.x
@@ -23776,15 +23776,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.3
+      value: 7.2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -15.88778
+      value: -21.03
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 115.6
+      value: 125.91
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalRotation.w
@@ -27558,7 +27558,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3080708496041955297, guid: 240b9a40744be4bbba9403af66f6902f, type: 3}
       propertyPath: m_Name
-      value: ai
+      value: Sofia
       objectReference: {fileID: 0}
     - target: {fileID: 8668641043813101999, guid: 240b9a40744be4bbba9403af66f6902f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -34053,7 +34053,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -24.5
+      value: -21.55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0ac400c970fe3f242aa99184fd165009, type: 3}
       propertyPath: m_LocalPosition.z

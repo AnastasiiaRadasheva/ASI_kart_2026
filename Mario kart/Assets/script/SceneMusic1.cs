@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
-public class SceneMusic : MonoBehaviour
+public class SceneMusic1 : MonoBehaviour
 {
     public AudioClip music;        
     [Range(0f, 1f)] public float volume = 0.6f;
