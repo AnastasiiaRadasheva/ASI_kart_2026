@@ -59,7 +59,7 @@ You can download and play the ready Windows build without installing Unity:
 ---
 
 ### Opening the Project
-
+(First, you need to download and unzip the entire project from GitHub. Do not use the link from Google Drive!)
 1. Open Unity Hub  
 2. Click **Add Project**  
 3. Select folder `Mario kart`  
