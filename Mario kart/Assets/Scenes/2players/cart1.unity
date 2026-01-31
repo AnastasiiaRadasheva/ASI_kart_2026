@@ -19302,7 +19302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LapCounter
   lapsToWin: 3
-  gameMode: 1
+  gameMode: 2
   currentLaps: 0
   lapText: {fileID: 1369008637}
   winPanel: {fileID: 1234617916}
@@ -38287,7 +38287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LapCounter
   lapsToWin: 3
-  gameMode: 1
+  gameMode: 2
   currentLaps: 0
   lapText: {fileID: 1369008633}
   winPanel: {fileID: 1234617916}

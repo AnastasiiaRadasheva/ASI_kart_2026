@@ -36,11 +36,8 @@ public class LapCounter : MonoBehaviour
     void Start()
     {
         timerScript = FindObjectOfType<RaceTime>();
-
         if (winPanel != null) winPanel.SetActive(false);
-
         checkpointsPassed = new bool[numberOfLapCheckpoints];
-
         UpdateText();
     }
 
@@ -105,10 +102,12 @@ public class LapCounter : MonoBehaviour
             return;
         }
 
-        var allLapCounters = FindObjectsOfType<LapCounter>();
+        var players = FindObjectsOfType<LapCounter>().Where(p => p.gameMode == 2).ToArray();
+
+        if (players.Length < 2) return;
 
         bool allFinished = true;
-        foreach (var p in allLapCounters)
+        foreach (var p in players)
         {
             if (!p.isFinished)
             {
@@ -117,7 +116,7 @@ public class LapCounter : MonoBehaviour
             }
         }
 
-        if (allFinished && allLapCounters.Length >= 2)
+        if (allFinished)
         {
             EndRaceForEveryone();
         }
@@ -128,11 +127,15 @@ public class LapCounter : MonoBehaviour
         if (timerScript != null)
             timerScript.StopTimer();
 
-        var allLapCounters = FindObjectsOfType<LapCounter>();
-        foreach (var p in allLapCounters)
-        {
+        LapCounter[] targets;
+
+        if (gameMode == 2)
+            targets = FindObjectsOfType<LapCounter>().Where(p => p.gameMode == 2).ToArray();
+        else
+            targets = FindObjectsOfType<LapCounter>().Where(p => p.gameMode == 1).ToArray();
+
+        foreach (var p in targets)
             p.ShowResult();
-        }
 
         if (!endSequenceStarted)
         {

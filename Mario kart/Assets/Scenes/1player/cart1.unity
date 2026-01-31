@@ -10223,7 +10223,7 @@ MonoBehaviour:
   resultText: {fileID: 274581366}
   numberOfLapCheckpoints: 3
   returnToMenuDelay: 5
-  mainMenuSceneName: MainMenu
+  mainMenuSceneName: menyTEST
 --- !u!114 &558236552
 MonoBehaviour:
   m_ObjectHideFlags: 0
