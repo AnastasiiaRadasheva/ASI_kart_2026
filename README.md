@@ -39,7 +39,7 @@ The winner is determined based on completed laps and finishing position.
 You can download and play the ready Windows build without installing Unity:
 
 **Download:**  
-[link](https://drive.google.com/drive/folders/1SN0rPWrRILqrpG-rQii3j0BhS4V0WVQL?usp=drive_link)
+[link](https://drive.google.com/drive/folders/1r71dR7k_Tn_bcoqxcHfmjkouP3JaKHer?usp=sharing)
 
 ### How to Run
 
