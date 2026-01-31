@@ -52,7 +52,8 @@ You can download and play the ready Windows build without installing Unity:
 
 ---
 
-## Development Setup (Unity)
+
+## Development Setup (Unity) The second way to play game 
 
 ### Required Software
 
