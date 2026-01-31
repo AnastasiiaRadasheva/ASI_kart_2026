@@ -70,7 +70,7 @@ You can download and play the ready Windows build without installing Unity:
 ## Running in Unity Editor
 
 1. Open the project  
-2. Open scene `MainMenu`  
+2. Open scene `menyTEST`  
 3. Press **Play**  
 
 ---
