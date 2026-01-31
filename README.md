@@ -19,7 +19,8 @@ The winner is determined based on completed laps and finishing position.
 - Race track with lap system  
 - Player-controlled kart  
 - At least 2 AI opponents  
-- Lap counter and winner detection  
+- Lap counter and winner detection
+- There is lava on the map
 
 ### User Interface
 - Position and lap counter display  
