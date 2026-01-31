@@ -42,10 +42,12 @@ You can download and play the ready Windows build without installing Unity:
 
 ### How to Run
 
-1. Download the ZIP file  (or just the whole folder)
-2. Extract it
+1. Download the ZIP file  ( the whole folder)
+<img width="1004" height="638" alt="image" src="https://github.com/user-attachments/assets/7a73ed95-dfba-44d5-b97b-b79b21f5f08f" />
+
+3. Extract it
 <img width="1322" height="664" alt="image" src="https://github.com/user-attachments/assets/53c2604f-1d77-4828-bcf2-13c84eec3a84" />
-3. Run `Mad-wheels.exe`  
+4. Run `Mad-wheels.exe`  
 
 ---
 
