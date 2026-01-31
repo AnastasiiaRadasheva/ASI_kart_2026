@@ -90,9 +90,9 @@ S / ↓ | Brake / Reverse
 A / ← | Turn Left  
 D / → | Turn Right  
 T / L | Handbrake
-ESC | Pause  
-F / L |  (respawn at last checkpoint)  
+F / M |  (respawn at last checkpoint)  
 R | Reset (ALL LEVEL!!!)  
+ESC | Pause  
 
 ---
 
