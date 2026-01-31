@@ -1,8 +1,8 @@
 # ASI Kart 2026 — Mario Kart-Style Game (Unity)
 
-**Project:** ASI Cup 2026 Qualifier — “ASI Kart”  
+**Project:** ASI  2026 — “Mad-Wheels”  
 **Engine:** Unity (C#)  
-**Project Folder:** `Mario kart`  
+**Project Folder:** `Mad-Wheels”`  
 
 ---
 
