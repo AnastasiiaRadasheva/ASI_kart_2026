@@ -42,7 +42,7 @@ You can download and play the ready Windows build without installing Unity:
 
 ### How to Run
 
-1. Download the ZIP file  (or just file)
+1. Download the ZIP file  (or just the whole folder)
 2. Extract it  
 3. Run `Mario-Kart.exe`  
 
