@@ -1,45 +1,51 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class StartCountdown : MonoBehaviour
 {
-    public GameObject startPanel;      
-    public GameObject countdownPanel;  
+    public GameObject startPanel;
+    public GameObject countdownPanel;
     public TextMeshProUGUI countdownText;
 
     public int countdownTime = 3;
 
-    private static bool hasSeenStartScreen = false; 
-    private bool hasCountdownPlayed = false;       
+    private static string lastSceneWhereStartWasSeen = "";
+    private bool hasCountdownPlayed = false;
 
     void Start()
     {
-        if (hasSeenStartScreen)
+        string sceneName = SceneManager.GetActiveScene().name;
+
+        bool shouldShowStart = (lastSceneWhereStartWasSeen != sceneName);
+
+        if (shouldShowStart)
         {
-            startPanel.SetActive(false);
-            StartCoroutine(LevelCountdown());
+            startPanel.SetActive(true);
+            countdownPanel.SetActive(false);
+            Time.timeScale = 0f;
         }
         else
         {
-            startPanel.SetActive(true);
-            Time.timeScale = 0f;
+            startPanel.SetActive(false);
+            StartCoroutine(LevelCountdown());
         }
     }
 
     public void OnPlayButtonPressed()
     {
-        if (hasSeenStartScreen) return;
+        string sceneName = SceneManager.GetActiveScene().name;
 
-        hasSeenStartScreen = true; 
+        lastSceneWhereStartWasSeen = sceneName;
+
         startPanel.SetActive(false);
-
         StartCoroutine(LevelCountdown());
     }
 
     IEnumerator LevelCountdown()
     {
-        if (hasCountdownPlayed) yield break; 
+        if (hasCountdownPlayed) yield break;
 
         hasCountdownPlayed = true;
 
