@@ -2,7 +2,7 @@
 
 **Project:** ASI  2026 — “Mad-Wheels”  
 **Engine:** Unity (C#)  
-**Project Folder:** `Mad-Wheels`  
+**Project Folder:** `Mario Kart`  
 
 ---
 
