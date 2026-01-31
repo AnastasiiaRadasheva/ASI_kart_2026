@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class LapCounter : MonoBehaviour
 {
@@ -19,7 +20,9 @@ public class LapCounter : MonoBehaviour
 
     private bool isFinished = false;
     private string personalFinishTime;
+
     private static Dictionary<GameObject, string> finishTimes = new Dictionary<GameObject, string>();
+    private static bool endSequenceStarted = false;
 
     private RaceTime timerScript;
 
@@ -27,14 +30,17 @@ public class LapCounter : MonoBehaviour
     private Dictionary<CheckpointID, float> lastHitTime = new Dictionary<CheckpointID, float>();
     private float minTimeBetweenHits = 0.05f;
 
-    private static List<LapCounter> activePlayers = new List<LapCounter>();
+    public float returnToMenuDelay = 5f;
+    public string mainMenuSceneName = "MainMenu";
 
     void Start()
     {
         timerScript = FindObjectOfType<RaceTime>();
+
         if (winPanel != null) winPanel.SetActive(false);
+
         checkpointsPassed = new bool[numberOfLapCheckpoints];
-        if (!activePlayers.Contains(this)) activePlayers.Add(this);
+
         UpdateText();
     }
 
@@ -72,6 +78,7 @@ public class LapCounter : MonoBehaviour
         {
             CheckpointID cp = other.GetComponent<CheckpointID>();
             if (cp == null) return;
+
             if (lastHitTime.ContainsKey(cp) && Time.time - lastHitTime[cp] < minTimeBetweenHits) return;
             lastHitTime[cp] = Time.time;
 
@@ -82,6 +89,8 @@ public class LapCounter : MonoBehaviour
 
     void FinishRace()
     {
+        if (isFinished) return;
+
         isFinished = true;
 
         if (timerScript != null)
@@ -90,66 +99,102 @@ public class LapCounter : MonoBehaviour
         if (!finishTimes.ContainsKey(gameObject))
             finishTimes.Add(gameObject, personalFinishTime);
 
-        if (gameMode == 2)
+        if (gameMode == 1)
         {
-            bool allFinished = true;
-            foreach (var p in activePlayers)
-            {
-                if (!p.isFinished)
-                {
-                    allFinished = false;
-                    break;
-                }
-            }
+            EndRaceForEveryone();
+            return;
+        }
 
-            if (allFinished)
+        var allLapCounters = FindObjectsOfType<LapCounter>();
+
+        bool allFinished = true;
+        foreach (var p in allLapCounters)
+        {
+            if (!p.isFinished)
             {
-                timerScript.StopTimer();
-                foreach (var p in activePlayers)
-                    p.ShowResultIfQualified();
+                allFinished = false;
+                break;
             }
         }
-        else
+
+        if (allFinished && allLapCounters.Length >= 2)
         {
-            timerScript.StopTimer();
-            ShowResultIfQualified();
+            EndRaceForEveryone();
         }
     }
 
-    void ShowResultIfQualified()
+    void EndRaceForEveryone()
+    {
+        if (timerScript != null)
+            timerScript.StopTimer();
+
+        var allLapCounters = FindObjectsOfType<LapCounter>();
+        foreach (var p in allLapCounters)
+        {
+            p.ShowResult();
+        }
+
+        if (!endSequenceStarted)
+        {
+            endSequenceStarted = true;
+            StartCoroutine(ReturnToMenuAfterDelay());
+        }
+    }
+
+    System.Collections.IEnumerator ReturnToMenuAfterDelay()
+    {
+        yield return new WaitForSeconds(returnToMenuDelay);
+        SceneManager.LoadScene(mainMenuSceneName);
+    }
+
+    void ShowResult()
     {
         int myRank = GetMyRank();
-        bool isWinner = false;
-        if (gameMode == 1 && myRank == 1) isWinner = true;
-        if (gameMode == 2 && myRank <= 3) isWinner = true;
 
         if (winPanel != null)
         {
             winPanel.SetActive(true);
-            string myTime = finishTimes.ContainsKey(gameObject) ? finishTimes[gameObject] : personalFinishTime;
-            string status = isWinner ? "VICTORY!" : "RACE OVER";
-            resultText.text = status + "\n" + "Rank: " + myRank + "\n" + "Your Time: " + myTime;
+
+            string myTime = finishTimes.ContainsKey(gameObject)
+                ? finishTimes[gameObject]
+                : personalFinishTime;
+
+            if (resultText != null)
+            {
+                resultText.text =
+                    "RACE OVER\n" +
+                    "Rank: " + myRank + "\n" +
+                    "Your Time: " + myTime;
+            }
         }
     }
 
     int GetMyRank()
     {
-        var cars = FindObjectsOfType<CarProgress>().OrderByDescending(c => c.GetProgress()).ToList();
+        var cars = FindObjectsOfType<CarProgress>()
+            .OrderByDescending(c => c.GetProgress())
+            .ToList();
+
         for (int i = 0; i < cars.Count; i++)
         {
-            if (cars[i].gameObject == this.gameObject) return i + 1;
+            if (cars[i].gameObject == this.gameObject)
+                return i + 1;
         }
+
         return cars.Count;
     }
 
     void ResetCheckpoints()
     {
-        for (int i = 0; i < checkpointsPassed.Length; i++) checkpointsPassed[i] = false;
+        for (int i = 0; i < checkpointsPassed.Length; i++)
+            checkpointsPassed[i] = false;
+
         checkpointsCount = 0;
     }
 
     void UpdateText()
     {
-        if (lapText != null) lapText.text = "Lap: " + currentLaps + " / " + lapsToWin;
+        if (lapText != null)
+            lapText.text = "Lap: " + currentLaps + " / " + lapsToWin;
     }
 }

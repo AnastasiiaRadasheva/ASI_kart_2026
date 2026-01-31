@@ -4121,6 +4121,8 @@ MonoBehaviour:
   winPanel: {fileID: 0}
   resultText: {fileID: 0}
   numberOfLapCheckpoints: 3
+  returnToMenuDelay: 5
+  mainMenuSceneName: MainMenu
 --- !u!114 &164091555 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4502741074723132226, guid: 713e494af4cde1f4497cca0f9b798c94, type: 3}
@@ -38682,6 +38684,8 @@ MonoBehaviour:
   winPanel: {fileID: 885980791}
   resultText: {fileID: 151005979}
   numberOfLapCheckpoints: 3
+  returnToMenuDelay: 5
+  mainMenuSceneName: menyTEST
 --- !u!114 &1702411193
 MonoBehaviour:
   m_ObjectHideFlags: 0
